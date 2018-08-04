@@ -10,6 +10,8 @@ module.exports = function (digits) {
   var factor_1 = 0;
   var palindromeNumber = 0;
   let reversedString = null;
+  let savedFactor0 = 0;
+  let savedFactor1 = 0;
 
   // do your work here
   if (digits === 2) {
@@ -36,9 +38,15 @@ module.exports = function (digits) {
           reversedString = reversedArr.join("");
           console.log(reversedString);
         }
+
         if (reversedString === productString) {
           console.log("It's a palindrome!");
           palindromeNumber = Number(productString);
+          return {
+            factor_0: factor_0,
+            factor_1: factor_1,
+            palindromeNumber: palindromeNumber
+          };
         }
         else {
           console.log("~~~Product is not a palindrome.~~~");
@@ -47,8 +55,8 @@ module.exports = function (digits) {
     }
   }
   else if (digits === 3) {
-    for (let factor_0 = 999; factor_0 > 990; factor_0--) {
-      for (let factor_1 = 999; factor_1 > 990; factor_1--) {
+    for (let factor_0 = 999; factor_0 > 900; factor_0--) {
+      for (let factor_1 = 999; factor_1 > 900; factor_1--) {
         //Get the product
         console.log("factor_0: " + factor_0 + ", factor_1: " + factor_1);
         let product = factor_0 * factor_1;
@@ -72,18 +80,25 @@ module.exports = function (digits) {
         }
         if (reversedString === productString) {
           console.log("It's a palindrome!");
-          palindromeNumber = Number(productString);
+          if (Number(productString) > palindromeNumber) {
+            palindromeNumber = Number(productString);
+            savedFactor0 = factor_0;
+            savedFactor1 = factor_1;
+          }
         }
         else {
           console.log("~~~Product is not a palindrome.~~~");
         }
       }
     }
-  }
+    factor_0 = savedFactor0;
+    factor_1 = savedFactor1;
+    console.log(palindromeNumber, savedFactor0, savedFactor1);
 
-  return {
-    factor_0: factor_0,
-    factor_1: factor_1,
-    palindromeNumber: palindromeNumber
-  };
+    return {
+      factor_0: factor_0,
+      factor_1: factor_1,
+      palindromeNumber: palindromeNumber
+    };
+  }
 };
